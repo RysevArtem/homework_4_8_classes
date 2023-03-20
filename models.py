@@ -20,7 +20,6 @@ class Product:
         """
         return self.quantity >= quantity
 
-
     def buy(self, quantity):
         """
         TODO реализуйте метод покупки
@@ -32,7 +31,6 @@ class Product:
             return self.quantity
         else:
             raise ValueError("Товара не хватает на складе")
-
 
     def __hash__(self):
         return hash(self.name + self.description)
@@ -96,10 +94,12 @@ class Cart:
         Учтите, что товаров может не хватать на складе.
         В этом случае нужно выбросить исключение ValueError
         """
+        total_price = self.get_total_price()
+
         for product, quantity in self.products.items():
             if product.check_quantity(quantity) is True:
                 product.buy(quantity)
             else:
                 raise ValueError('Товара не хватает на складе')
         self.clear()
-
+        return total_price
